@@ -6,9 +6,10 @@ from requests.api import head
 # APP_KEY = "0f071914677de40f241e02e244fa427a"
 # APP_ID = "03d83ae5"
 # TOKEN = "Bearer adjfalsdjfalksjfajdfajslkfjaskfjijijwefjefKJKALKLDJFLAKSDJFLKAJFKJADKD"
-APP_KEY = os.environ.get("APP_KEY")
-APP_ID = os.environ.get("APP_ID")
-TOKEN = os.environ.get("TOKEN")
+APP_ID = os.environ["03d83ae5"]
+API_KEY = os.environ["0f071914677de40f241e02e244fa427a"]
+TOKEN = os.environ["Bearer adjfalsdjfalksjfajdfajslkfjaskfjijijwefjefKJKALKLDJFLAKSDJFLKAJFKJADKD"]
+
 EXERCISE_ENDPOINT = "https://trackapi.nutritionix.com/v2/natural/exercise"
 
 SHEETY_POST_ENDPOINT = "https://api.sheety.co/512281c0f92b08daff1844bf687d7a88/workoutTracking/workouts"
@@ -17,7 +18,7 @@ SHEETY_POST_ENDPOINT = "https://api.sheety.co/512281c0f92b08daff1844bf687d7a88/w
 
 headers = {
     "x-app-id": APP_ID,
-    "x-app-key": APP_KEY,
+    "x-app-key": API_KEY,
 }
 
 data = {
