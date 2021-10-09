@@ -1,10 +1,14 @@
 import requests
-import json
+import os
 import datetime as dt
 from requests.api import head
 
-APP_KEY = "0f071914677de40f241e02e244fa427a"
-APP_ID = "03d83ae5"
+# APP_KEY = "0f071914677de40f241e02e244fa427a"
+# APP_ID = "03d83ae5"
+# TOKEN = "Bearer adjfalsdjfalksjfajdfajslkfjaskfjijijwefjefKJKALKLDJFLAKSDJFLKAJFKJADKD"
+APP_KEY = os.environ.get("APP_KEY")
+APP_ID = os.environ.get("APP_ID")
+TOKEN = os.environ.get("TOKEN")
 EXERCISE_ENDPOINT = "https://trackapi.nutritionix.com/v2/natural/exercise"
 
 SHEETY_POST_ENDPOINT = "https://api.sheety.co/512281c0f92b08daff1844bf687d7a88/workoutTracking/workouts"
@@ -26,6 +30,7 @@ data = {
 
 response = requests.post(url=EXERCISE_ENDPOINT, json=data, headers=headers)
 result = response.json()
+print(result)
 
 for i in range(0, len(result["exercises"])):
     date = dt.datetime.today().strftime("%Y/%m/%d")
@@ -33,9 +38,6 @@ for i in range(0, len(result["exercises"])):
     exercise = result["exercises"][i]["name"].title()
     duration = result["exercises"][i]["duration_min"]
     calories = result["exercises"][i]["nf_calories"]
-
-    # print(
-    #     f"Now: {date}\nTime: {time}\nExercise: {exercise}\nDuration: {duration}\nCalories: {calories}")
 
     body = {
         'workout': {
@@ -47,8 +49,12 @@ for i in range(0, len(result["exercises"])):
         }
     }
 
+    headers = {
+        "Authorization": TOKEN
+    }
+
     response = requests.post(url=SHEETY_POST_ENDPOINT,
-                             params=json.dumps(body, separators=(',', ':')))
+                             json=body, headers=headers)
     status_from_post = response.text
 
 print(status_from_post)
