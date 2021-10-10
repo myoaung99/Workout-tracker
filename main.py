@@ -3,12 +3,12 @@ import os
 import datetime as dt
 from requests.api import head
 
-# APP_KEY = "0f071914677de40f241e02e244fa427a"
-# APP_ID = "03d83ae5"
-# TOKEN = "Bearer adjfalsdjfalksjfajdfajslkfjaskfjijijwefjefKJKALKLDJFLAKSDJFLKAJFKJADKD"
-APP_ID = os.environ["03d83ae5"]
-API_KEY = os.environ["0f071914677de40f241e02e244fa427a"]
-TOKEN = os.environ["Bearer adjfalsdjfalksjfajdfajslkfjaskfjijijwefjefKJKALKLDJFLAKSDJFLKAJFKJADKD"]
+API_KEY = "0f071914677de40f241e02e244fa427a"
+APP_ID = "03d83ae5"
+# TOKEN = "adjfalsdjfalksjfajdfajslkfjaskfjijijwefjefKJKALKLDJFLAKSDJFLKAJFKJADKD"
+# APP_ID = os.environ["03d83ae5"]
+# API_KEY = os.environ["0f071914677de40f241e02e244fa427a"]
+# TOKEN = os.environ["Bearer adjfalsdjfalksjfajdfajslkfjaskfjijijwefjefKJKALKLDJFLAKSDJFLKAJFKJADKD"]
 
 EXERCISE_ENDPOINT = "https://trackapi.nutritionix.com/v2/natural/exercise"
 
@@ -50,12 +50,18 @@ for i in range(0, len(result["exercises"])):
         }
     }
 
-    headers = {
-        "Authorization": TOKEN
-    }
+    # bearer_headers = {
+    #     "Authorization": f"Bearer {TOKEN}",
+    # }
 
-    response = requests.post(url=SHEETY_POST_ENDPOINT,
-                             json=body, headers=headers)
+    sheet_response = requests.post(
+        SHEETY_POST_ENDPOINT,
+        json=body,
+        auth=(
+            "myomyintaung",
+            "myomyintaung2112",
+        )
+    )
     status_from_post = response.text
 
 print(status_from_post)
